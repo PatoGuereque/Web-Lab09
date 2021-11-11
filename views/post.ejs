@@ -1,0 +1,60 @@
+<%- include ("./partials/_header") %>
+
+<div class="container mb-5">
+    <div class="row">
+      <!--FORM-->
+      <div class="col-md-6 offset-md-3">
+        <% if (type === "add") { %>
+          <h1 class="display-4">Add a new Post</h1>
+        <% } else if (type === "edit") {  %>
+          <h1 class="display-4">Editing Post</h1>
+        <% } else if (type === "delete") {  %>
+          <h1 class="display-4">Confirm Deletion?</h1>
+        <% }  %>
+        <div class="card">
+          <div class="card-body">
+            <% if (type === "add") { %>
+              <form action="/add" method="post">
+            <% } else if (type === "edit") {  %>
+              <form action="/edit/<%= post._id   %>" method="post">
+            <% } else if (type === "delete") {  %>
+              <form action="/delete/<%= post._id   %>" method="post">
+            <% }  %>
+
+              <div class="mb-3">
+                <label for="blog-title" class="form-label">Title</label>
+                <input type="text" name="title" class="form-control" id="blog-title" placeholder="Blog title" value="<%= post.title   %>" <% if (type === "delete") { %> disabled <% }  %>>
+              </div>
+
+              <div class="mb-3">
+                <label for="blog-author" class="form-label">Author</label>
+                <input type="text" name="author" class="form-control" id="blog-author" placeholder="Author" value="<%= post.author   %>" <% if (type === "delete") { %> disabled <% }  %>>
+              </div>
+
+              <div class="mb-3">
+                <label for="blog-desc" class="form-label">Description</label>
+                
+                <textarea class="form-control" name="post_data" cols="80" id="blog-desc"
+                  placeholder="Add a Description" <% if (type === "delete") { %> disabled <% }  %>><%= post.post_data   %></textarea>
+              </div>
+
+              <% if (type === "add") { %>
+                <button type="submit" class="btn btn-primary">Add</button>
+              <% } else if (type === "edit") {  %>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+              <% } else if (type === "delete") {  %>
+                <button type="submit" class="btn btn-primary">Delete</button>
+              <% }  %>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<%- include ("./partials/_footer") %>
